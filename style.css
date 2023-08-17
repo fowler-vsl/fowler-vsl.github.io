@@ -1,0 +1,272 @@
+/* Custom CSS for layout and appearance */
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  .non-clickable-text {
+    margin-right: 10px;
+    font-size: 30px;
+  }
+  
+  .menu-item {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .dropdown-icon {
+    font-size: 20px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    z-index: 9999;
+  }
+  
+  .dropdown-item {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  
+  .two-column-layout {
+    display: flex;
+  }
+    
+  .right-column {
+    flex: 1.5;
+    padding: 10px;
+    position: relative;
+  }
+  
+  #map {
+    height: 85vh;
+    width: 100%;
+  }
+  
+
+/* Container for the left button */
+.left-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Set a high z-index to ensure the button is on top */
+  }
+  
+  /* Left button styles */
+  .left-button {
+    margin: 10px;
+  }
+  
+  /* Container for the left column divs */
+  .left-column {
+    flex: 1;
+    padding: 10px;
+    background-color: #f5f5f5;
+    max-height: calc(85vh - 20px); /* Adjust the max height as needed */
+    overflow-y: auto; /* Add this to enable vertical scrolling if content exceeds max height */
+  }
+  
+  
+ /* Container for the left column divs */
+.left-column-divs-container {
+    margin-top: 10px; /* Add some margin between the button and the divs container */
+    max-height: calc(85vh - 80px); /* Adjust the max height to leave space for the button and the header */
+    overflow-y: auto; /* Add this to enable vertical scrolling if content exceeds max height */
+  }
+  
+  /* Style for the row divs inside the left column divs container */
+  .row-div {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  
+  
+  /* Hide the JSON Data Table by default */
+  #jsonTable {
+    display: none;
+  }
+  
+  /* Center the JSON Data Table */
+  .window-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 10000;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 1px solid #000000;
+  }
+
+
+    /* record div */
+    .record-div {
+        background-color: rgba(255, 255, 255, 0.95);
+        z-index: 1000;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: 1px solid #000000;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      
+      }
+
+
+  /* Style for the "No records found" message */
+.no-records-message {
+    text-align: center;
+    font-style: italic;
+    margin: 10px;
+    color: #999;
+  }
+  
+
+  
+  .window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .window-close-button {
+    cursor: pointer;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+
+  .highlighted {
+    border: 2px solid blue;
+    background-color: #f0f0f0;
+  }
+  
+
+  /* CSS for the Markdown container */
+.markdown-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    z-index: 1000;
+  }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    height: 90%;
+    position: relative;
+    border-radius: 25px;
+    border: 1px solid #000000;
+
+  }
+  
+  .close {
+    color: #aaa;
+    float: right; /* Float the "x" to the right */
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+    
+  /* Add this CSS to style the markdown div to look like the left side divs */
+#markdownDiv {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  #markdownDiv h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  #markdownDiv p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  #markdownDiv a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  #markdownDiv a:hover {
+    text-decoration: underline;
+  }
+
+
+  h1 + p{
+    color: #5b2c2c;
+    font-weight: bold;
+
+  }
+  
+  #blurb{
+
+    font-size: 12pt;
+    font-weight: normal;
+  }

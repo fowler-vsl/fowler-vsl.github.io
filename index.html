@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visual + Sonic Landscapes of Muslim LA</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Menu bar -->
+  <div class="menu-bar">
+    <div class="non-clickable-text">Visual + Sonic Landscapes of Muslim LA <br/><i>Fowler Museum Virtual Exhibition</i></div>
+    <div class="menu-item">About</div>
+    <div class="menu-item">Historical</div>
+    <div class="menu-item">Visual</div>
+    <div class="menu-item">Sonic</div>
+<!--    <div class="menu-item dropdown-icon" onclick="toggleDropdownMenu()">☰</div>-->
+  </div>
+  
+  <div id="markdownModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="markdownContent"></div>
+    </div>
+  </div>
+  
+  <!-- Two-column layout -->
+  <div class="two-column-layout">
+   <!-- Left column with the button -->
+   <div class="left-column">
+    <div class="left-button-container">
+      <button id="toggleButton" onclick="toggleDataTableWindow()" class="left-button">Exhibition Directory</button>
+    </div>
+    <div class="left-column-divs-container"></div> <!-- Container for the left side divs -->
+</div>
+
+    <!-- Right column with the map -->
+    <div class="right-column">
+      <div id="map"></div>
+      <!-- Hidden DataTable window -->
+      <div class="window-container hidden" id="jsonTable">
+        <div class="window-header">
+          Exhibition Directory
+          <span class="window-close-button" onclick="toggleDataTableWindow()">X</span>
+        </div>
+        <table id="dataTable" class="display" style="width:100%"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropdown-menu" id="dropdownMenu">
+    <div class="dropdown-item">Option 1</div>
+    <div class="dropdown-item">Option 2</div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -222,7 +222,7 @@ function updateMap() {
 
 function fetchAndDisplayData() {
   $.ajax({
-    url: 'data/markdown/',
+    url: './data/markdown/',
     success: function (data) {
       const markdownFiles = $(data).find('a[href$=".md"]');
 
@@ -243,7 +243,7 @@ function fetchAndDisplayData() {
         const file = markdownFiles[index].getAttribute('href');
         const fileId = file.replace('.md', '');
         $.ajax({
-          url: 'data/markdown/' + file,
+          url: './data/markdown/' + file,
           dataType: 'text',
           success: function (mdContent) {
             const parsedJSON = parseMarkdownToJSON(mdContent, fileId);

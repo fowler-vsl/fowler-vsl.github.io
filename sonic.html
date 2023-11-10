@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visual + Sonic Landscapes of Muslim LA: Sonic</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sonic.css">
+
+</head>
+<body>
+    <!-- loads the menu for the page; see the script at the bottom of the page -->
+    <div id="menuContainer"></div>
+
+    <!-- markdownModal; This is a hidden window which covers everything for the modal popup when a card is clicked on -->
+    <div id="markdownModal" class="modal">
+     <span class="modal-close">&times;</span>
+     <div id="modal-content" class="modal-content"></div>
+    </div>
+ 
+     <!-- Directory; This is a hidden window which covers everything -->
+   <div class="window-container hidden" id="jsonTable">
+     <div class="window-header">
+       People Directory
+       <span class="window-close-button" onclick="toggleDataTableWindow()">X</span>
+     </div>
+     <table id="dataTable" class="display" style="width:100%"></table>
+   </div>
+ 
+   <!-- main-content -->
+   <div id="main-content" class="main-content">
+    <p class="page_header">Sonic</p>
+    <hr/>
+    <p class="page_content"> Listen to Muslim community members, organizers, artists, musicians, and religious leaders, 
+        as well as audio of specific sounds linked to devotional practice in Los Angeles. 
+        <br /><br />
+ <div class = "two-image-page">
+   <div class="display-picture page_header"><a href="playlists.html"><img src="img/MusicAndPodcasts.png" alt="VSL Logo"> </a><center class="icon-text">Podcasts & Music</center></div> 
+   <div class="display-picture page_header"><a href="people.html"><img src="img/OralHistories.png" alt="VSL Logo"> </a><center class="icon-text">Oral Histories</center></div> 
+   </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="js/sonic_config.js"></script>
+  <script src="js/people.js"></script>
+  <script>
+    // Load the menu bar using JavaScript
+    const menuContainer = document.getElementById('menuContainer');
+    const menuBarURL = 'menu.html'; // Update with the correct URL
+    fetch(menuBarURL)
+      .then(response => response.text())
+      .then(data => {
+        menuContainer.innerHTML = data;
+      })
+      .catch(error => {
+        console.error(`Error loading menu bar: ${error}`);
+      });
+  </script>
+
+</body>
+</html>

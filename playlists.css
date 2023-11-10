@@ -1,0 +1,121 @@
+.main-content {
+  background-color: #858585 !important;
+
+}
+
+body {
+
+  background-color: #858585 !important;
+
+  }
+  
+  /* record div */
+.record_div {
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    margin: .5%;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    display: inline-block;
+  
+  }
+
+
+
+  .small-card{
+    width: 200px !important;
+    height: 200px !important;
+    float:left; /* add this */
+
+
+
+  }
+
+  .featured_image {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 15px !important;
+
+  }
+
+/* CSS for aligning the image within small-card-container */
+.small-card-container {
+  width: 200px !important; /* Set the desired width */
+  height: 200px !important; /* Set the desired height */
+ /* display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  border: 3px solid black !important; /* Add a border for visualization */
+}
+
+/* Style for the featured_image_small */
+.featured_image_small {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 15px !important;
+  border: 3px solid black !important; /* Add a border for visualization */
+}
+
+/* Ensure small-card has the same width and height */
+.small-card {
+  width: 200px !important; /* Set the same width as small-card-container */
+  height: 200px !important; /* Set the same height as small-card-container */
+  float: left;
+}
+
+.left-button-container {
+  background-color: #858585 !important;
+
+}
+
+.left-column {
+  background-color: #858585 !important;
+
+}
+
+
+.small-card-div{
+  display: flex;
+  flex-wrap: wrap !important;
+
+}
+
+/* Ensure small-card has the same width and height */
+.small-card {
+  width: 200px !important; /* Set the same width as small-card-container */
+  height: 200px !important; /* Set the same height as small-card-container */
+  float: left;
+  margin: 15px;
+}
+
+
+.page_content {
+  color: rgb(0, 0, 0) !important;
+}
+
+.page_content, .page_content a,  .page_content i{
+  color: rgb(0, 0, 0) !important;
+}
+
+
+.page_header {
+  color: rgb(0, 0, 0) !important;
+  font-family: Arial !important;
+  font-weight: bold !important;
+  font-size: 20pt !important;
+}
+
+.modal_image_grid{
+  display: flex;
+  flex-wrap: wrap !important;
+  width: 100%;
+
+
+}
+
+.modal_grid{
+  margin: 10px !important;
+}

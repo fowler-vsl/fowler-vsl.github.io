@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visual + Sonic Landscapes of Muslim LA</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about.css">
+
+</head>
+<body>
+    <!-- loads the menu for the page; see the script at the bottom of the page -->
+    <div id="menuContainer"></div>
+
+    <!-- markdownModal; This is a hidden window which covers everything for the modal popup when a card is clicked on -->
+    <div id="markdownModal" class="modal">
+     <span class="modal-close">&times;</span>
+     <div id="modal-content" class="modal-content"></div>
+    </div>
+   </div>
+ 
+     <!-- Directory; This is a hidden window which covers everything -->
+   <div class="window-container hidden" id="jsonTable">
+     <div class="window-header">
+       People Directory
+       <span class="window-close-button" onclick="toggleDataTableWindow()">X</span>
+     </div>
+     <table id="dataTable" class="display" style="width:100%"></table>
+   </div>
+ 
+   <!-- main-content -->
+   <div id="main-content" class="main-content">
+<div class="page_header">Visual and Sonic Landscapes of Muslims in Los Angeles</div>
+    <p class="page_content"> 
+      For most of its history, the story of Muslim Angelenos has been told by non-Muslim journalists, politicians, activists, and academics. 
+      <i>Visual and Sonic Landscapes of Muslim Los Angeles</i> is an effort to create a public space for self-representation and self-definition for Muslim Angelenos by Muslim Angelenos. 
+      A focus on community voices and ritual, music, murals, and other artworks as primary source materials defines this project. 
+    </p>
+    
+    <p class="page_content">
+      During 2022 and 2023, which marked the first phase of the <i>Visual and Sonic Landscapes of Muslims in Los Angeles</i>, 
+      our team interviewed community members and collected oral histories, 
+      mapped important brick and mortar sites, and conducted an initial survey of sonic and visual 
+      expressions of being Muslim in LA. The project's initial stage is the result of a collaboration 
+      between the Fowler Museum and UCLA's Islamic Studies program. </p>
+    
+      <p class="page_content">
+      Through this partnership and, we hope, many future collaborations with university and community members, 
+      we endeavor to increase the content represented here, to assemble a wealth of materials and create an unprecedented 
+      resource and historical record. If you wish to collaborate or add or correct information, please reach out to us at 
+      the following address: <a href = "mailto: fowlereducation@arts.ucla.edu">fowlereducation@arts.ucla.edu</a> 
+    </p>
+    <br /><br />
+    <div class="page_header">Acknowledgements</div>
+    <p class="page_content">
+      Visual and Sonic Landscapes of Muslim LA was made possible through the generous support of The Henry Luce Foundation, 
+      Lilly Endowment Inc., and the UCLA Chancellor's Art Initiative Grant. 
+      This is a collaborative project between The Fowler Museum at UCLA and UCLA's Islamic Studies Program.
+    </p>
+    <br /><br />
+    <div class="page_header">Contact us</div>
+    <p class="page_content">
+      Visual and Sonic Landscapes of Muslims in Los Angeles is a collaborative project between the Fowler Museum and UCLA's 
+      Islamic Studies Program. Please contact fowlereducation@arts.ucla.edu regarding the project.
+    </p>
+    <br /><br />
+    <div class="page_header">Project Team</div>
+  </div>
+   
+ 
+    <!-- Left column with the button -->
+    <div class="left-column">
+  
+     <div id="small-card-div" class="small-card-div">
+       <div id="small_card_featured_image" class="small_card_featured_image">
+     </div> <!-- Container for the left side divs -->
+     
+   </div>
+     
+   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="js/about_config.js"></script>
+  <script src="js/people.js"></script>
+  <script>
+    // Load the menu bar using JavaScript
+    const menuContainer = document.getElementById('menuContainer');
+    const menuBarURL = 'menu.html'; // Update with the correct URL
+    fetch(menuBarURL)
+      .then(response => response.text())
+      .then(data => {
+        menuContainer.innerHTML = data;
+      })
+      .catch(error => {
+        console.error(`Error loading menu bar: ${error}`);
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+   /* record div */
+.record_div {
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    margin: .5%;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    display: inline-block;
+  
+  }
+
+
+
+  .small-card{
+    width: 200px !important;
+    height: 200px !important;
+    float:left; /* add this */
+
+
+
+  }
+
+  .featured_image {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 15px !important;
+    border-width: 0px !important;
+
+  }
+
+/* CSS for aligning the image within small-card-container */
+.small-card-container {
+  width: 200px !important; /* Set the desired width */
+  height: 200px !important; /* Set the desired height */
+ /* display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  border: 3px solid black !important; /* Add a border for visualization */
+}
+
+/* Style for the featured_image_small */
+.featured_image_small {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 15px !important;
+  border: 3px solid black !important; /* Add a border for visualization */
+}
+
+/* Ensure small-card has the same width and height */
+.small-card {
+  width: 200px !important; /* Set the same width as small-card-container */
+  height: 200px !important; /* Set the same height as small-card-container */
+  margin: 15px;
+}
+
+.left-button-container {
+  background-color: #ffffff;
+
+}
+
+.left-column {
+  background-color: #ffffff;
+
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column size as needed */
+  gap: 10px; /* Adjust the gap between grid items */
+  /* You can also specify other grid properties like grid-template-rows if needed */
+}
+
+.overlay {
+  border-radius: 15px !important;
+  width: 205px !important; /* Set the same width as small-card-container */
+  height: 205px !important; /* Set the same height as small-card-container */
+}
+
+
+.small-card-div{
+  display: flex;
+  flex-wrap: wrap !important;
+
+}
+
+.modal_grid{
+  margin: 15px;
+}
+
+.modal_featured_image{
+  border: 0px !important;
+}
+
+
+.page_header {
+  color: rgb(0, 0, 0) !important;
+  font-family: Arial !important;
+  font-weight: bold !important;
+  font-size: 20pt !important;
+
+
+
+}
+
+.page_content {
+  color: rgb(0, 0, 0) !important;
+}
+
+.page_content, .page_content a,  .page_content i{
+  color: rgb(0, 0, 0) !important;
+}
+
+.main-content{
+  background-color: #ffffff;
+
+}
+
+h1, h2, h3{
+  color: rgb(0, 0, 0) !important;
+  font-family: Arial !important;
+  font-weight: bold !important;
+  font-size: 20pt !important;
+
+}

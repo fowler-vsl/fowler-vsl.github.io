@@ -1,18 +1,9 @@
 // Global variables to hold map and GeoJSON layer
-let map;
-let geojsonLayer;
 let jsonRecords; // Store original jsonRecords globally
 let filteredRecords = []; // Store filtered jsonRecords globally
 let markdownModal; // Global variable to hold the reference to the markdown modal
 const linkPrefix = 'http://localhost/fowler_landscapes/data/vsl_item_media/1_All_Media/'; // Where the image directory is
 let filename = 'test';
-
-// Create the custom icon
-const customIcon = L.icon({
-  iconUrl: 'vsl.svg', // Location of the marker image file
-  iconSize: [35, 35], // Adjust the icon size as needed
-  iconAnchor: [16, 32] // Adjust the icon anchor point if needed
-});
 
 
 // Function to parse markdown content and extract data
@@ -183,9 +174,6 @@ function createRecordDiv(record) {
 
 // Function to show the markdown content in a modal-like div
 // Function to show the markdown content in a modal-like div
-// ... (Previous code remains the same)
-
-// Function to show the markdown content in a modal-like div
 function showMarkdownModal(id) {
   if (markdownModal) {
     clearMarkdownModal();
@@ -268,8 +256,6 @@ function createImageSlideshow(element) {
   prevButton.addEventListener('click', prevImage);
 }
 
-
-
 // Function to clear the markdown modal content
 function clearMarkdownModal() {
   if (markdownModal) {
@@ -302,69 +288,7 @@ function updateLeftColumnDiv() {
   }
 }
 
-// Function to create a Glider carousel for a given element
-function createGliderCarousel(element) {
-  const glider = new Glider(element, {
-    slidesToShow: 1,
-    dots: `.${element.getAttribute('data-dots')}`,
-    draggable: true,
-    arrows: {
-      prev: `.${element.getAttribute('data-prev')}`,
-      next: `.${element.getAttribute('data-next')}`
-    }
-  });
-}
 
-function updateMapWithFeatures(features) {
-  const geojsonLayer = L.geoJSON(features, {
-    pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, { icon: customIcon });
-    },  
-    onEachFeature: function (feature, layer) {
-      // Create a popup for each feature
-      const popupContent = `
-        <h1>${feature.properties.name_of_site_item_name}</h1>
-        <h2 style="display: inline-block;">Neighborhood:</h2> ${feature.properties.neighborhood}<br/>
-        <h2 style="display: inline-block;">Address:</h2> ${feature.properties.address}<br/>
-        <h2 style="display: inline-block;">About:</h2> ${feature.properties.description_blurb}<br/>
-        <a href="#" class="popup-link" data-name="${feature.properties.name_of_site_item_name}">...more</a>
-        `;
-      
-
-      layer.bindPopup(popupContent);
-    }
-  });
-
-  return geojsonLayer;
-}
-
-// Function to update the map based on the current features in the left side div
-function updateMap() {
-  const validFeatures = filteredRecords
-    .filter(record => typeof record.latitude === 'number' && typeof record.longitude === 'number')
-    .map(record => ({
-      type: 'Feature',
-      properties: {
-        name_of_site_item_name: record.name_of_site_item_name || '',
-        website: record.website || '',
-        neighborhood: record.neighborhood || '',
-        address: record.address || '',
-        description_blurb: truncateText(record.description_blurb || '', 100 || '') // Handle potential undefined property
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [parseFloat(record.longitude), parseFloat(record.latitude)]
-      }
-    }));
-
-  if (map) {
-    if (geojsonLayer) {
-      geojsonLayer.clearLayers();
-    }
-    geojsonLayer = updateMapWithFeatures(validFeatures);
-    geojsonLayer.addTo(map);
-  }
-}
 
 function fetchAndDisplayData() {
   $.ajax({
@@ -379,8 +303,6 @@ function fetchAndDisplayData() {
         if (index >= markdownFiles.length) {
           displayDataTable(jsonRecords);
 
-          // Update the map and left column divs here
-          updateMap();
           updateLeftColumnDiv();
 
           return;
@@ -412,185 +334,11 @@ function fetchAndDisplayData() {
 }
 
 
-function displayDataTable(records) {
-  jsonRecords = records; // Store original jsonRecords in the global variable
-  filteredRecords = records; // Initialize filteredRecords with all records initially
 
-  const dataTableData = records.map(record => ({
-    id: record.id, // Keep the 'id' property in the dataTableData
-    featured_image_url: record.featured_image_url || '',
-    name_of_site_item_name: record.name_of_site_item_name || '',
-    website: record.website || '',
-    neighborhood: record.neighborhood || '',
-    address: record.address || '',
-    longitude: record.longitude || '',
-    latitude: record.latitude || '',
-    description_blurb: truncateText(record.description_blurb, 100 || '') // Truncate to the first 3 lines
-  }));
-
-  const dataTable = $('#dataTable').DataTable({
-    data: dataTableData,
-    columns: [
-      { title: 'ID', data: 'id', visible: false }, // Hide the 'id' column from the user interface
-      { title: 'featured_image_url', data: 'featured_image_url', visible: false }, // Hide the 'featured_image_url' column from the user interface
-      { title: 'Title', data: 'name_of_site_item_name' },
-      { title: 'Link', data: 'website' },
-      { title: 'Neighborhood', data: 'neighborhood' },
-      { title: 'Address', data: 'address' },
-      { title: 'longitude', data: 'longitude' },
-      { title: 'latitude', data: 'latitude' },
-      { title: 'About', data: 'description_blurb' }
-    ]
-  });
-
-  
-  // Event listener for DataTable draw event to update the left column div
-  dataTable.on('draw.dt', function () {
-    // Get the filtered data from the DataTable
-    updateFilteredRecords() ;
-
-    updateLeftColumnDiv();
-
-    updateMap(); 
-  });
-
-    // Event listener for DataTable draw event to update the left column div
-    dataTable.on('search.dt', function () {
-      // Get the filtered data from the DataTable
-      updateFilteredRecords() ;
-  
-      updateLeftColumnDiv();
-
-      updateMap(); 
-    });
-
-
-  if (geojsonLayer) {
-    geojsonLayer.clearLayers();
-  }
-
-  // Create a GeoJSON feature collection from the records
-  const geojsonFeatures = records.map(record => {
-    if (typeof record.latitude === 'number' && typeof record.longitude === 'number') {
-      return {
-        type: 'Feature',
-        properties: {
-          title: record.name_of_site_item_name || '',
-          link: record.website || '',
-          neighborhood: record.neighborhood || '',
-          address: record.address || '',
-          about: truncateText(record.description_blurb || '', 100 || '') // Handle potential undefined property
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [parseFloat(record.longitude), parseFloat(record.latitude)]
-        }
-      };
-    }
-    return null; // Skip this record if lat or lon is not a number
-  }).filter(feature => feature !== null); // Remove null values from the array
-  
-
-
-
-// Create the GeoJSON layer and add it to the map
-geojsonLayer = L.geoJSON(geojsonFeatures, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, { icon: customIcon });
-  },
-  onEachFeature: function (feature, layer) {
-    // Create a popup for each feature
-    const popupContent = `
-      <h3>${feature.properties.name_of_site_item_name}</h3>
-      <strong>Neighborhood:</strong> ${feature.properties.neighborhood}<br>
-      <strong>Address:</strong> ${feature.properties.address}<br>
-      <strong>About:</strong> ${feature.properties.description_blurb}
-    `;
-
-    layer.bindPopup(popupContent);
-  }
-});
-
-// Add the GeoJSON layer with custom markers to the map
-geojsonLayer.addTo(map);
-
-
-
-$('#jsonTable').show();
-updateLeftColumnDiv(); // Call updateLeftColumnDiv() to update the left side divs
-
-}
-
-// Function to update the filteredRecords array based on DataTable search
-function updateFilteredRecords() {
-  const dataTable = $('#dataTable').DataTable();
-  const searchValue = dataTable.search();
-
-  if (searchValue) {
-    filteredRecords = jsonRecords.filter(record => {
-      return (
-        (record.name_of_site_item_name || '').toLowerCase().includes(searchValue.toLowerCase()) ||
-        (record.website || '').toLowerCase().includes(searchValue.toLowerCase()) ||
-        (record.neighborhood || '').toLowerCase().includes(searchValue.toLowerCase()) ||
-//        (record.address || '').toLowerCase().includes(searchValue.toLowerCase()) ||
-        (record.description_blurb || '').toLowerCase().includes(searchValue.toLowerCase())
-      );
-    });
-  } else {
-    filteredRecords = jsonRecords;
-  }
-
-  updateLeftColumnDiv(); // Update the left column div with the filtered data
-}
-
-function truncateText(text, maxLength) {
-  if (typeof text === 'string' && text.length > maxLength) {
-    return text.slice(0, maxLength) + '...';
-  }
-  return text;
-}
-
-function closeDataTableWindow() {
-  $('#jsonTable').hide();
-}
-
-function setupLeafletMap() {
-  // Set the initial view of the map to Los Angeles
-  map = L.map('map').setView([34.0522, -118.2437], 10);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-
-  // Event listener for clicking the popup links
-  map.on('popupopen', function (e) {
-    const popupLink = e.popup._contentNode.querySelector('.popup-link');
-    if (popupLink) {
-      popupLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        const nameOfSiteItem = popupLink.getAttribute('data-name');
-        openFeatureDivFromMap(nameOfSiteItem); // Call your function to open the corresponding feature div
-      });
-    }
-  });
-}
-
-function openFeatureDivFromMap(nameOfSiteItem) {
-  const recordDivs = document.querySelectorAll('.record-div');
-  
-  for (const div of recordDivs) {
-    const titleElement = div.querySelector('h3');
-    if (titleElement && titleElement.textContent.includes(nameOfSiteItem)) {
-      const id = div.getAttribute('data-id');
-      showMarkdownModal(id);
-      return; // Stop searching after finding the first match
-    }
-  }
-}
 
 // Call fetchAndDisplayData() and setupLeafletMap() after the page has loaded
 $(document).ready(function () {
   fetchAndDisplayData();
-  setupLeafletMap();
 });
 
 

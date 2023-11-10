@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visual + Sonic Landscapes of Muslim LA</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="people.css">
+
+</head>
+<body>
+  
+  <!-- loads the menu for the page; see the script at the bottom of the page -->
+  <div id="menuContainer"></div>
+
+   <!-- markdownModal; This is a hidden window which covers everything for the modal popup when a card is clicked on -->
+   <div id="markdownModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div id="modal-content" class="modal-content"></div>
+   </div>
+  </div>
+
+    <!-- Directory; This is a hidden window which covers everything -->
+  <div class="window-container hidden" id="jsonTable">
+    <div class="window-header">
+      People Directory
+      <span class="window-close-button" onclick="toggleDataTableWindow()">X</span>
+    </div>
+    <table id="dataTable" class="display" style="width:100%"></table>
+  </div>
+
+  <!-- main-content -->
+  <div id="main-content" class="main-content">
+    <div class="page_header">Oral Histories</div>
+    
+  <p class="page_content">Learn about the lived experiences of Muslims in Los Angeles. This repository contains brief biographies, full interviews, and the interview transcripts. Certain interviews were conducted by UCLA students from the Global Islam Freshman Cluster (2022-2023). 
+  </p>
+    <div class="left-button-container">
+      <br />
+      <button id="toggleButton" onclick="toggleDataTableWindow()" class="left-button">People Directory</button>
+    </div>
+  
+
+   <!-- Left column with the button -->
+   <div class="left-column">
+    
+ 
+    <div id="small-card-div" class="small-card-div">
+      <div id="small_card_featured_image" class="small_card_featured_image">
+    </div> <!-- Container for the left side divs -->
+    
+  </div>
+    
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cloud9carousel@2.2.0/jquery.cloud9carousel.min.js"></script>
+  <script src="js/people_config.js"></script>
+  <script src="js/people.js"></script>
+  <script>
+    // Load the menu bar using JavaScript
+    const menuContainer = document.getElementById('menuContainer');
+    const menuBarURL = 'menu.html'; // Update with the correct URL
+    fetch(menuBarURL)
+      .then(response => response.text())
+      .then(data => {
+        menuContainer.innerHTML = data;
+      })
+      .catch(error => {
+        console.error(`Error loading menu bar: ${error}`);
+      });
+  </script>
+
+</body>
+</html>

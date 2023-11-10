@@ -1,26 +1,88 @@
 /* Custom CSS for layout and appearance */
+
+html *
+{
+   font-size: 12px;
+
+   font-family: Arial !important;
+}
+
+
 body {
     margin: 0;
     padding: 0;
+    color: #000; 
+    background-color: #ffffff;
+  }
+
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 90%;
+  }
+
+  th, td {
+    border: 1px solid black;
+  }
+  
+  
+
+
+  .menu-logo {
+    width: 250px;
+  
   }
   
   .menu-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
+    align-self: auto;
+    background-color: #ffffff;
     padding: 10px;
+    border-bottom: 3px solid black;
+    text-shadow: 2px 2px 4px #BFD0DE !important;
+  font-size: 21px !important;
+  font-family: Arial !important;
+  font-feature-settings: "c2sc", "smcp" !important;
+  font-weight: normal !important;
+  align-items: center !important;
+
+  
+  }  
+  
+  
+  .menu-bar a {
+    color: #000000 !important;
+    text-shadow: 2px 2px 4px #BFD0DE !important;
+    font-size: 35px !important;
+    font-family: Arial !important;
+    font-feature-settings: "c2sc", "smcp" !important;
+    font-weight: normal !important;
+    text-decoration: none;
+
+  }
+
+  .menu-bar a:hover {
+    text-shadow: 3px 3px 5px #BFD0DE !important;
+    font-size: 40px !important;
+    font-family: Arial !important;
+    font-feature-settings: "c2sc", "smcp" !important;
+    font-weight: bold !important;
+  
   }
   
+  
   .non-clickable-text {
-    margin-right: 10px;
     font-size: 30px;
+    color: #000000 !important;
+
   }
   
   .menu-item {
     cursor: pointer;
     margin-right: 10px;
+    color: #000000;
+    font-size: 18px;
   }
   
   .dropdown-icon {
@@ -31,7 +93,7 @@ body {
     position: absolute;
     top: 40px;
     right: 20px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border: 1px solid #ccc;
     padding: 10px;
     display: none;
@@ -45,10 +107,11 @@ body {
   
   .two-column-layout {
     display: flex;
+    background-color: #ffffff;
+    height: 100%;
   }
     
   .right-column {
-    flex: 1.5;
     padding: 10px;
     position: relative;
   }
@@ -56,6 +119,11 @@ body {
   #map {
     height: 85vh;
     width: 100%;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+
+
   }
   
 
@@ -74,10 +142,9 @@ body {
   
   /* Container for the left column divs */
   .left-column {
-    flex: 1;
     padding: 10px;
-    background-color: #f5f5f5;
     max-height: calc(85vh - 20px); /* Adjust the max height as needed */
+    /*height: 100%; */
     overflow-y: auto; /* Add this to enable vertical scrolling if content exceeds max height */
   }
   
@@ -85,8 +152,9 @@ body {
  /* Container for the left column divs */
 .left-column-divs-container {
     margin-top: 10px; /* Add some margin between the button and the divs container */
-    max-height: calc(85vh - 80px); /* Adjust the max height to leave space for the button and the header */
+    /*max-height: calc(85vh - 80px); /* Adjust the max height to leave space for the button and the header */
     overflow-y: auto; /* Add this to enable vertical scrolling if content exceeds max height */
+    height: 100%;
   }
   
   /* Style for the row divs inside the left column divs container */
@@ -121,22 +189,7 @@ body {
     border-radius: 25px;
     border: 1px solid #000000;
   }
-
-
-    /* record div */
-    .record-div {
-        background-color: rgba(255, 255, 255, 0.95);
-        z-index: 1000;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: 1px solid #000000;
-        margin-top: 20px;
-        margin-bottom: 20px;
-      
-      }
-
-
+  
   /* Style for the "No records found" message */
 .no-records-message {
     text-align: center;
@@ -167,7 +220,7 @@ body {
 
   .highlighted {
     border: 2px solid blue;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
   }
   
 
@@ -178,7 +231,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -188,50 +241,11 @@ body {
     overflow: auto;
     z-index: 1000;
   }
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 2% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 90%;
-    height: 90%;
-    position: relative;
-    border-radius: 25px;
-    border: 1px solid #000000;
-
-  }
-  
-  .close {
-    color: #aaa;
-    float: right; /* Float the "x" to the right */
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
     
   /* Add this CSS to style the markdown div to look like the left side divs */
 #markdownDiv {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
     max-width: 600px;
@@ -259,14 +273,500 @@ body {
   }
 
 
-  h1 + p{
-    color: #5b2c2c;
+  h1 {
+    color: #2C3D71;
+    font-size: 18px;
+
+  }
+
+  h2 {
+    font-size: 14px;
+    font-family: Arial !important;
     font-weight: bold;
-
-  }
   
-  #blurb{
-
-    font-size: 12pt;
-    font-weight: normal;
   }
+
+  h3 {
+    color: #000000;
+    font-size: 12px;
+
+  }
+
+  h4 {
+    color: #5D9BD1;
+    font-size: 10px;
+
+  }
+
+  .popup-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .popup-link a:hover {
+    text-decoration: underline;
+  }
+
+  /* CSS for media in the modal */
+.media-image {
+  display: block;
+  margin: 10px auto;
+}
+
+.media-link {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}
+
+
+   /* record div */
+   .record_div {
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    margin: .5%;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 3px solid #000000;
+    display: inline-block;
+    position: relative;
+
+  
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: x-large;
+    text-align: center;
+  }
+
+  .record_div:hover .overlay {
+    opacity: .7;
+  }
+
+  .html_featured_image {
+  max-width: 300px; /* Ensure the image fits within the container */
+  right: 5%; /* Adjust the right distance as needed */
+  top: 5%; /* Adjust the right distance as needed */
+  width: 300px;                                                                                                                                                                                                                                                                                                                                                                                         
+  margin: 0 auto; /* Center the image horizontally */
+  float: right;
+  border-radius: 15px;
+
+
+}
+
+.html_featured_image_people {
+  width: 200px;                                                                                                                                                                                                                                                                                                                                                                                         
+  margin: 0 auto; /* Center the image horizontally */
+  border-radius: 15px;
+}
+
+
+
+  .image-container_people {
+    float: none;
+    /* Center the content horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ensure the image doesn't exceed the container size */
+    overflow: hidden;
+    transition: .2s ease;
+    position:relative;
+    background-color: rgb(0, 0, 0);
+  }
+
+  .image-container {
+    float: right;
+    /* Center the content horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ensure the image doesn't exceed the container size */
+    overflow: hidden;
+    padding-top: 20px; /* Add more padding on the right */
+    
+  
+  }
+  .image-container img {
+    /* Maintain the aspect ratio of the image */
+    height: auto;
+    width: auto;
+    padding: 5px;
+    float: right;
+  
+  }
+
+
+  
+  
+
+
+  /*Slide styles from w3c; modified as needed*/
+  
+  .w3-display-bottomright{position:absolute;right:0;bottom:0}
+
+  .w3-button:hover{color:#000!important;background-color:#ccc!important}
+  .w3-btn,.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
+  .w3-btn,.w3-button{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}   
+  .w3-disabled,.w3-btn:disabled,.w3-button:disabled{cursor:not-allowed;opacity:0.3}.w3-disabled *,:disabled *{pointer-events:none}
+  .w3-dropdown-hover:hover > .w3-button:first-child,.w3-dropdown-click:hover > .w3-button:first-child{background-color:#ccc;color:#000}
+  .w3-bar-block .w3-dropdown-hover .w3-button,.w3-bar-block .w3-dropdown-click .w3-button{width:100%;text-align:left;padding:8px 16px}
+  .w3-bar .w3-button{white-space:normal}
+  .w3-dropdown-hover.w3-mobile,.w3-dropdown-hover.w3-mobile .w3-btn,.w3-dropdown-hover.w3-mobile .w3-button,.w3-dropdown-click.w3-mobile,.w3-dropdown-click.w3-mobile .w3-btn,.w3-dropdown-click.w3-mobile .w3-button{width:100%}}
+  .w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}
+
+  .w3-display-left{position:absolute;top:50%;left:0%;transform:translate(0%,-50%);-ms-transform:translate(-0%,-50%)}
+  .w3-display-right{position:absolute;top:50%;right:0%;transform:translate(0%,-50%);-ms-transform:translate(0%,-50%)}
+
+  .slide_image {
+    max-height: 500px; /* Ensure the image fits within the container */
+    height: 500px;                                                                                                                                                                                                                                                                                                                                                                                         
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 15px;
+  }
+
+  .w3-display-bottomright{position:absolute;right:0;bottom:0}
+  .w3-tooltip,.w3-display-container{position:relative}.w3-tooltip .w3-text{display:none}.w3-tooltip:hover .w3-text{display:inline-block}
+  .w3-display-container:hover .w3-display-hover{display:block}.w3-display-container:hover span.w3-display-hover{display:inline-block}.w3-display-hover{display:none}
+
+
+  .page_header{
+    color:#ffffff;
+    font-size: xx-large;
+  }
+
+  .page_content{
+    color:#000000;
+    font-size: large;
+  }
+
+  .page_content i,a{
+    color:#000000;
+    font-size: large;
+  }
+
+
+  .main-content {
+   /* display: flex; */
+   background-color: #ffffff;
+   height: 100%;
+    margin: 48px;
+  }
+
+  .featured_image_small {
+    width: 200px;
+  /*  max-height: 200px ;                                                                                                                                                                                                                                                                                                                                                                                         
+    margin: 0 auto; /* Center the image horizontally 
+    border-radius: 15px; */
+    border: 3px solid black;
+  }
+
+
+
+ 
+.timeline-browser {
+  display: flex;
+  justify-content: space-between;
+  align-self: auto;                                                                                                                                                                                                                                                                         background-color: #ffffff;
+  padding: 10px;
+  background-color: #000000;
+}
+
+/* record div */
+.small-card {
+  background-color: #ffffff;
+  z-index: 1000;
+  box-sizing: border-box;
+  border-radius: 25px;
+  position: relative;
+  width: 98%;
+
+
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: x-large;
+  text-align: center;
+}
+
+.small-card:hover .overlay {
+  opacity: .7;
+}
+
+.small-card-container {
+background-color: #ffffff;
+border-radius: 25px;
+/*margin: 2% auto;
+padding: 15px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;*/
+}
+
+.small-card-left {
+flex: 0 0 60%; /* 60% of the container width */
+padding: 10px;
+}
+
+.small-card-right {
+flex: 0 0 30%; /* Adjust for the desired width of the right column */
+padding: 10px;
+}
+
+
+.small-card-bottom {
+flex: 0 0 100%;
+background-color: #ffffff;
+color: #fff;
+padding: 10px;
+border-top: 3px solid black;
+border-bottom-left-radius: 25px;
+border-bottom-right-radius: 25px;
+}
+
+
+ /* CSS for the modal */
+ .modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+.small-card-title{
+
+  font-size: 18px;
+  font-weight: bold !important;
+  font-family: Arial !important;
+
+
+
+}
+
+
+.small-card-descriptive_tags{
+  font-style: italic;
+}
+
+
+.hrpartial {  
+  width:80%;
+  margin-left:0%;
+  margin-right: 10%;
+  height: 3px;
+    color: #FFC000;
+  border-color: #e9e100b6;
+  background-color: #e9e100b6;
+}
+
+.small-card-bottom-text{
+  font-family: Arial;
+  font-size: 12pt;
+  color: white;
+  background-color: black;
+  display: inline-block;
+  padding: 7px;
+  box-shadow: 4px 4px 8px #363a3e;
+  border-radius: 5px;
+}
+
+.small-card-bottom-text-right{
+  font-family: Arial;
+  font-size: 20pt;
+  color: white;
+  background-color: black;
+  display: inline-block;
+  padding: 7px;
+  box-shadow: 4px 4px 8px #363a3e;
+  border-radius: 5px;
+  position:absolute; 
+  right:0;
+}
+
+.main-page-content{
+  font-family: Arial;
+  font-size: 14pt;
+  color: black;
+  margin: 5%;
+
+}
+
+.main-page-content i{
+  font-family: Arial;
+  font-size: 14pt;
+  color: black;
+  margin: 5%;
+
+}
+
+
+.modal-content-scrollable {
+  overflow-y: auto; /* Enable vertical scrolling */
+  flex-grow: 1; /* Allow the content to grow and take up available space */
+}
+
+.modal-left-content{
+  font-size: 14px;
+  font-family: Arial !important;
+}
+
+.modal-left-content h2{
+  font-size: 14px;
+  font-family: Arial !important;
+  font-weight: bold;
+}
+
+.modal-left-content-header{
+  font-size: 20px;
+  font-weight: bold !important;
+  font-family: Arial !important;
+
+
+}
+
+
+.modal_featured_image{
+  max-width: 300px; /* Ensure the image fits within the container */
+  right: 5%; /* Adjust the right distance as needed */
+  top: 5%; /* Adjust the right distance as needed */
+  width: 300px;                                                                                                                                                                                                                                                                                                                                                                                         
+  margin: 0 auto; /* Center the image horizontally */
+  float: right;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border: 3.5px solid black;
+  /* Add margin to create space below the image */
+}
+
+/* CSS for changing the size of video elements */
+video {
+  max-width: 400px; /* Adjust the maximum width as needed */
+  height: auto; /* This maintains the aspect ratio of the video */
+  /* Additional styles */
+  /* width: 100%; */ /* You can use a specific width if you don't want to maintain the aspect ratio */
+}
+
+/* CSS for changing the size of audio elements */
+audio {
+  max-width: 400px; /* Adjust the width as needed */
+  /* Additional styles */
+  /* height: auto; */ /* You can set a specific height if needed */
+}
+
+
+/* Styles for the modal content */
+.modal-content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 3px solid #000000;
+  border-radius: 25px;
+  overflow: auto; /* Enable vertical scrolling */
+  max-height: 80vh; /* Set a maximum height to limit the scrollable area */
+  flex-grow: 1; /* Allow the content to grow and take up available space */
+  margin-right: 10px; /* Add some space between the left and right columns */
+}
+
+.modal-left {
+  flex: 0 0 60%; /* 60% of the container width */
+  padding: 10px;
+}
+
+.modal-right {
+  flex: 0 0 30%; /* Adjust for the desired width of the right column */
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Stack the left, right, and bottom sections vertically */
+  justify-content: space-between;
+  align-items: stretch;
+
+}
+
+.modal-bottom {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 10px;
+  border-top: 3px solid black;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  margin-top: 10px; /* Add some space between the content and the bottom section */
+}
+
+/* Clear the float to prevent issues with following elements */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Styles for the modal close button */
+.modal-close {
+  color: #aaa;
+  position: fixed;
+  top: 4%;
+  right: 4%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: bold;
+  z-index: 9999;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.carousel .cloud9-item, #buttons button {
+  cursor: pointer;
+}
+
+.modal_image_grid {
+  display: flex;
+  flex-wrap: wrap !important;
+}

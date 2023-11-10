@@ -106,12 +106,12 @@ function transformJSON(jsonObj) {
   return nestedJSON;
 }
 
-function generateHTML(jsonObj, headingLevel, linkPrefix) {
+function generateHTML(jsonObj, headingLevel, linkPrefix, media_key_value) {
   let html = '';
   const headerLevel = Math.min(headingLevel + 1, 6); // Ensure the header level is within h1 to h6
 
   for (const key in jsonObj) {
-    if (key === 'media') {
+    if (key === media_key_value) {
       // Special handling for the 'media' section
       html += `<h${headerLevel}>${key}</h${headerLevel}>`;
       const mediaSection = jsonObj[key];
@@ -130,9 +130,6 @@ function generateHTML(jsonObj, headingLevel, linkPrefix) {
         for (const mediaLink in mediaLinks) {
           html += `<div><a href="${linkPrefix}${mediaLink}">${linkPrefix}${mediaLink}: ${mediaLinks[mediaLink]}</a></div>\n`;
         }
-        html += `<button aria-label="Previous" class="glider-prev">«</button>\n`;
-        html += `<button aria-label="Next" class="glider-next">»</button>\n`;
-        html += `<div role="tablist" class="dots"></div>\n`;
         html += `</div>\n`;
         html += `</div>\n`;
       }
@@ -157,8 +154,177 @@ function generateHTML(jsonObj, headingLevel, linkPrefix) {
   return html;
 }
 
+function slugify(text) {
+  return text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+}
+
+
+function parseMarkdownToHTML(mdContent, filename, media_key_value) {
+  const lines = mdContent.split('\n');
+  let html = '';
+  let currentDivClass = '';
+  let currentSubheader = '';
+  const currentDivs = [];
+  let mediaSubdivId = ''; // Store the ID of the current media sub-div
+
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)+/g, '');
+  }
+
+  function transformLine(line, linkPrefix, subheader) {
+    // Transform links to clickable links with target=_blank
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const transformedLine = line.replace(linkRegex, (match, text, url) => {
+      const fullUrl = linkPrefix + url;
+      return `<a href="${fullUrl}" target="_blank">${text}</a>`;
+    });
+
+    return transformedLine;
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const headingMatch = line.match(/^(#{1,6})\s+(.*?)\s*(\{\.(\w+)})?$/);
+
+    if (headingMatch) {
+      const headingLevel = headingMatch[1].length;
+      const headingText = headingMatch[2];
+      const headingClass = headingMatch[4] || currentDivClass; // Inherit class from the containing div
+
+      // Create an ID for the div
+      const divId = `${filename}_${slugify(headingText)}`;
+
+      if (headingClass.includes(media_key_value)) {
+        currentDivClass = headingClass; // Update the class for the current containing div
+        currentSubheader = headingText; // Update the current subheader text
+        mediaSubdivId = `${divId}_images`; // Create ID for the image sub-div
+      }
+
+      // Open a new div with an ID and class for this heading and its subheaders
+      const divClass = headingClass ? ` class="${headingClass}"` : '';
+      html += `<div id="${divId}"${divClass}><h${headingLevel}>${headingText}</h${headingLevel}>`;
+
+      // Check if it's a media sub-div, and if so, open the image sub-div
+      if (mediaSubdivId) {
+        html += `<div id="${mediaSubdivId}">`;
+      }
+      currentDivs.push({ level: headingLevel, id: divId });
+    } else {
+      // Transform content inside the current div
+      let transformedLine = transformLine(line, linkPrefix, currentSubheader);
+
+      if (mediaSubdivId) {
+        // If inside the media sub-div, wrap images in the new sub-div
+        const imgMatch = line.match(/<a href="([^"]+)"[^>]*><img src="([^"]+)"[^>]*><\/a>/);
+        if (imgMatch) {
+          const imgSrc = imgMatch[2];
+          transformedLine = `<a href="${imgSrc}" target="_blank" class="mySlides fade">${transformedLine}</a>`;
+        }
+      }
+
+      html += transformedLine;
+    }
+  }
+
+  // Close any open media sub-div
+  if (mediaSubdivId) {
+    html += `</div>`;
+  }
+
+  // Close any open divs
+  for (let i = currentDivs.length - 1; i >= 0; i--) {
+    const div = currentDivs[i];
+    html += `</div>`;
+  }
+
+  return html;
+}
+
+
+
+function transformLine(line, linkPrefix, subheader, currentDivClass) {
+  const lineMatch = line.match(/^(.*?)(:\s*)(.*)$/);
+
+  if (lineMatch) {
+    const fileName = lineMatch[1];
+    const colon = lineMatch[2];
+    const description = lineMatch[3];
+
+    if (isImageFile(fileName)) {
+      const imageUrl = `${linkPrefix}${fileName}`;
+      let transformedLine = `<a href="${imageUrl}" target="_blank"><img src="${imageUrl}" alt="${description}" /></a>`;
+
+      // Check if we are in the media section
+      if (currentDivClass.includes('media')) {
+        // Wrap the image link in a new div
+        transformedLine = `<div>${transformedLine}</div>`;
+      }
+
+      return transformedLine;
+    } else {
+      const transformedLine = `<a href="${linkPrefix}${fileName}" target="_blank">${description}</a>`;
+      return `<p>${transformedLine}</p>\n`;
+    }
+  }
+
+  // If the line doesn't match the expected pattern, return it as-is
+  return `${line}\n`;
+}
+
+
+function isImageFile(fileName) {
+  // Add more image file extensions as needed
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg'];
+  const fileExtension = fileName.substr(fileName.lastIndexOf('.')).toLowerCase();
+  return imageExtensions.includes(fileExtension);
+}
+
+
+function modifyMediaDiv(html, media_div_title) {
+  // Create a temporary div element to parse the HTML
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+
+  // Find the media div
+  var mediaDiv = tempDiv.querySelector(media_div_title);
+
+  // Check if the media div exists
+  if (mediaDiv) {
+    // Find all divs nested directly below the media div
+    var nestedDivs = mediaDiv.querySelectorAll('div');
+
+    // Iterate through the nested divs
+    nestedDivs.forEach(function (nestedDiv) {
+      // Change the class of each nested div to "glider_holder"
+      nestedDiv.classList.add('glider_holder');
+
+      // Wrap each image inside a new div
+      var images = nestedDiv.querySelectorAll('img');
+      images.forEach(function (image) {
+        var wrapperDiv = document.createElement('div');
+        wrapperDiv.classList.add('image_wrapper');
+        image.parentNode.replaceChild(wrapperDiv, image);
+        wrapperDiv.appendChild(image);
+      });
+    });
+
+    // Serialize the modified HTML back to a string
+    var modifiedHtml = tempDiv.innerHTML;
+
+    // Return the modified HTML
+    return modifiedHtml;
+  } else {
+    // Media div not found, return the original HTML
+    return html;
+  }
+}
+
+
 // Function to create a new div representing a JSON record
-function createRecordDiv(record) {
+function createRecordDiv(record, elements) {
   const recordDiv = document.createElement('div');
   recordDiv.classList.add('record-div');
   recordDiv.setAttribute('data-id', record.id); // Set the 'data-id' attribute with the ID
@@ -182,11 +348,7 @@ function createRecordDiv(record) {
 }
 
 // Function to show the markdown content in a modal-like div
-// Function to show the markdown content in a modal-like div
-// ... (Previous code remains the same)
-
-// Function to show the markdown content in a modal-like div
-function showMarkdownModal(id) {
+function showMarkdownModal(id) {1
   if (markdownModal) {
     clearMarkdownModal();
   }
@@ -194,81 +356,45 @@ function showMarkdownModal(id) {
   markdownModal = document.getElementById('markdownModal');
   const closeButton = markdownModal.querySelector('.close');
   const markdownContent = markdownModal.querySelector('#markdownContent');
+  const rightColumn = markdownModal.querySelector('.image-container'); // Assuming you have a right column in your modal
 
   $.ajax({
-    url: `data/markdown/${id}.md`,
+    url: `data/markdown/${id}.md`, // Modify this to your specific data directory
     dataType: 'text',
     success: function (mdContent) {
       var jsonOutput = parseMarkdownToJSON(mdContent, id, 3);
       jsonOutput.media = parseMarkdownToJSON(jsonOutput.media, id, 4);
-      jsonOutput.media = transformJSON(jsonOutput.media);
-      var jsonOutputHtml = generateHTML(jsonOutput, 3, linkPrefix);
+      jsonOutput.media = transformJSON(jsonOutput.media)
+     var jsonOutputHtml = generateHTML(jsonOutput, 3, linkPrefix)
+      console.log(jsonOutput)
+      console.log(jsonOutputHtml)
 
-      markdownContent.innerHTML = jsonOutputHtml;
+      // Clear the rightColumn before adding the new image
+      rightColumn.innerHTML = '';
+
+      // Display the image if it's available
+      if (jsonOutput.featured_image_url) {
+        const imgElement = document.createElement('img');
+        imgElement.src = jsonOutput.featured_image_url;
+        imgElement.alt = 'Featured Image';
+        rightColumn.appendChild(imgElement); // Append the image to the right column of the modal
+      }
+
+      //markdownContent.innerHTML = parseMarkdownToHTML(mdContent, filename, linkPrefix);
+      markdownContent.innerHTML = jsonOutputHtml
+      ///markdownContent.innerHTML = modifyMediaDiv(markdownContent.innerHTML)
       markdownModal.style.display = 'block';
-
-      // Find all elements with the class "glider" and create image slideshows
-      const gliderElements = markdownContent.querySelectorAll('.glider');
-      gliderElements.forEach((element, index) => {
-        createImageSlideshow(element);
-      });
     },
     error: function (xhr, status, error) {
       console.error(`Error fetching markdown file: ${error}`);
     }
   });
 
+  // Close the modal when the "x" button is clicked
   closeButton.addEventListener('click', function () {
     clearMarkdownModal();
   });
 }
-
-// Function to create an image slideshow for a given element
-function createImageSlideshow(element) {
-  const images = element.querySelectorAll('img');
-  let currentImageIndex = 0;
-
-  // Function to display the current image
-  function showCurrentImage() {
-    images.forEach((image, index) => {
-      if (index === currentImageIndex) {
-        image.style.display = 'block';
-      } else {
-        image.style.display = 'none';
-      }
-    });
-  }
-
-  // Initial display
-  showCurrentImage();
-
-  // Function to go to the next image
-  function nextImage() {
-    currentImageIndex++;
-    if (currentImageIndex >= images.length) {
-      currentImageIndex = 0;
-    }
-    showCurrentImage();
-  }
-
-  // Function to go to the previous image
-  function prevImage() {
-    currentImageIndex--;
-    if (currentImageIndex < 0) {
-      currentImageIndex = images.length - 1;
-    }
-    showCurrentImage();
-  }
-
-  // Add event listeners for next and previous buttons
-  const nextButton = element.querySelector('.next');
-  const prevButton = element.querySelector('.prev');
-
-  nextButton.addEventListener('click', nextImage);
-  prevButton.addEventListener('click', prevImage);
-}
-
-
 
 // Function to clear the markdown modal content
 function clearMarkdownModal() {
@@ -300,19 +426,6 @@ function updateLeftColumnDiv() {
       leftColumnDiv.appendChild(recordDiv);
     });
   }
-}
-
-// Function to create a Glider carousel for a given element
-function createGliderCarousel(element) {
-  const glider = new Glider(element, {
-    slidesToShow: 1,
-    dots: `.${element.getAttribute('data-dots')}`,
-    draggable: true,
-    arrows: {
-      prev: `.${element.getAttribute('data-prev')}`,
-      next: `.${element.getAttribute('data-next')}`
-    }
-  });
 }
 
 function updateMapWithFeatures(features) {

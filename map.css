@@ -1,0 +1,204 @@
+.small-card-title {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 18pt;
+    margin-left: 10px !important;
+    margin-top: 5px !important;
+
+
+}
+
+.small-card-neighborhood {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 12pt;
+    margin-left: 10px !important;
+
+}
+
+.small-card-about {
+    font-family: Arial;
+    font-size: 14pt;
+
+}
+
+.small-card-about h1{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 16pt;
+    color: #000;
+
+}
+
+.small-card-descriptive_tags {
+    font-family: Arial;
+    font-size: 12pt;
+    padding-top: 20px;
+    
+
+}
+
+.small-card-container{
+  background-color: #ffffff;
+}
+
+
+.small-card_featured_image_holder{
+max-width: 200px; /* Ensure the image fits within the container */
+max-height: 200px;
+border-bottom: 3.5px solid black;
+
+/* Add margin to create space below the image */
+
+}
+
+.small-card_featured_image_holder img {
+   object-fit: fill;
+   max-width: 200px; /* Ensure the image fits within the container */
+   max-height: 200px;
+   border-radius: 15px;
+   height: auto; /* Maintain the image's aspect ratio */
+   overflow: hidden;
+   margin: auto;
+   margin-top: -10px;
+   width: 100%;
+
+
+  } 
+  
+
+  .featured_image_small {
+    width: 200px;
+    height: 200px ;                                                                                                                                                                                                                                                                                                                                                                                         
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 15px;
+    border: 3px solid black;
+    margin-right: 10px; /* Adjust the spacing between image and info */
+
+
+  }
+
+  .small-card-container {
+    background-color: #ffffff;
+    border-radius: 25px;
+    margin: 2% auto;
+   /* padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; */
+    align-items: center !important;
+    }
+
+
+    .right-column {
+        flex: 4;
+      }
+      
+      /* Container for the left column divs */
+      .left-column {
+        flex: .7;
+      }
+    
+      .left-button-container{
+        flex-wrap: wrap !important;
+
+      }
+    
+      /* record div */
+.small-card {
+align-items: center !important;
+max-width: 200px !important;
+margin-top: 10px !important;
+border: 3.5px solid black;
+  
+  
+  }
+
+  .small-card-left {
+    flex: 0 0 100%; /* 60% of the container width */
+    padding: 10px;
+    }
+    
+
+    /* Styles for the modal close button */
+.modal-close {
+    position: fixed;
+    top: 1px;
+    right: 25px;
+    padding: 4px;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 9999;
+  }
+
+  .popup-card-container{
+
+    display: flex;
+    flex-direction: row;
+
+  }
+
+
+  .modal-right {
+    flex: 70%;
+    justify-content: center !important;
+    align-items: center !important; 
+  }
+  
+  .modal-left {
+    border-right: 2px solid #FFC000;
+    flex: 30%;
+  }
+  
+
+  .modal-left-content-border-top{
+    font-size: 14px;
+    font-family: Arial !important;
+    border-top: 2px solid #FFC000;
+
+  }
+
+
+
+  .featured_image_small_popup {
+    max-width: 150px;
+    max-height: 150px;                                                                                                                                                                                                                                                                                                                                                                                         
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 15px;
+    margin-right: 10px; /* Adjust the spacing between image and info */
+
+
+  }
+
+
+  .leaflet-popup-content{
+    margin-left: -1px !important;
+    margin-top: -1px !important;
+    margin-bottom: 0px !important;
+
+  }
+
+  .modal_image_grid {
+    display: flex;
+    flex-wrap: wrap !important;
+  }
+
+.modal_grid{
+  display: inline-block;
+  position: relative;
+
+}
+  .modal_grid:hover .overlay {
+    opacity: .7;
+    border-radius: 15px;
+
+  }
+  
+
+  .right-column {
+    padding: 0px !important;
+    padding-left: 10px !important;
+    position: relative;
+  }
